@@ -1,0 +1,21 @@
+{
+  "name": "simppt",
+  "version": "1.0.0",
+  "description": "lightweight ppt framework with Markdown and HTML/CSS",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "chensy",
+  "license": "ISC",
+  "dependencies": {
+    "highlight.js": "^11.10.0",
+    "jspdf": "^2.5.2",
+    "katex": "^0.16.11",
+    "marked": "^14.1.2",
+    "marked-highlight": "^2.1.4",
+    "marked-katex-extension": "^5.1.2",
+    "pdfkit": "^0.15.0",
+    "puppeteer": "^23.4.1"
+  }
+}
