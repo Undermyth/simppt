@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+}
+
+.cover {
+
+    /* put text in center of coverpage */
+    /* cover page is assume to be fully markdown, so there is a wrapper div */
+    div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    /* adjust the font */
+    h1 {
+        font-size: 60px;
+        margin-bottom: 10px;
+    }
+    h2 {
+        font-size: 25px;
+        margin: 5px;
+    }
+}
+
+.content {
+    h2 {
+        font-size: 50px;
+        margin-top: 20px;
+        border-bottom: 1px solid #000; /* 添加下划线 */
+        padding-bottom: 10px; /* 为下划线和文本之间添加一些间距 */
+    }
+    /* font sizes */
+    p, li {
+        font-size: 25px;
+    }
+    code {
+        font-size: 18px;
+    }
+    .katex {
+        font-size: 25px;
+    }
+}

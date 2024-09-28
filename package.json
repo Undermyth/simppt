@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "highlight.js": "^11.10.0",
+    "js-yaml": "^4.1.0",
+    "jsdom": "^25.0.1",
     "jspdf": "^2.5.2",
     "katex": "^0.16.11",
     "marked": "^14.1.2",
@@ -17,5 +19,8 @@
     "marked-katex-extension": "^5.1.2",
     "pdfkit": "^0.15.0",
     "puppeteer": "^23.4.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.13"
   }
 }

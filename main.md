@@ -8,8 +8,8 @@ layout: cover
 ---
 ---
 ## page title
-- some content
-- some content 2
+- 某些中文选项
+- 另一些中文选项
 
 $a^2+b^2=c^2$
 
@@ -25,3 +25,16 @@ import os
 import torch
 x = torch.tensor()
 ```
+
+---
+text_size: 10px
+---
+## divide by divs
+<div style="display: flex; width: 100%;">
+    <div style="width: 50%;">
+        - 这是左半边
+    </div>
+    <div style="width: 50%;">
+        - 这是右半边
+    </div>
+</div>
