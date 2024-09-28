@@ -4,6 +4,8 @@ const { JSDOM } = require('jsdom');
 const markedKatex = require("marked-katex-extension");
 const hljs = require('highlight.js');
 const yaml = require('js-yaml');
+const fs = require('fs');
+const path = require('path');
 
 const YAMLConfig = require('./yamlconfig')
 
@@ -81,13 +83,51 @@ class MdParser {
     }
 
     /**
+     * 获取文件的MIME类型
+     * @private
+     * @param {string} filePath - 文件路径
+     * @returns {string} - 文件的MIME类型
+     */
+    _getMimeType(filePath) {
+        const path = require('path');
+        const extension = path.extname(filePath).toLowerCase();
+        
+        const mimeTypes = {
+            '.jpg': 'image/jpeg',
+            '.jpeg': 'image/jpeg',
+            '.png': 'image/png',
+            '.gif': 'image/gif',
+            '.bmp': 'image/bmp',
+            '.webp': 'image/webp',
+            '.svg': 'image/svg+xml'
+        };
+
+        return mimeTypes[extension] || 'application/octet-stream';
+    }
+    _processImageNode(node, document) {
+        if (node.nodeName.toLowerCase() === 'img') {
+            console.log(`处理图片节点: ${node.outerHTML}`);
+            const src = node.getAttribute('src');
+            try {
+                const imageData = fs.readFileSync(path.resolve(src));
+                const base64Image = imageData.toString('base64');
+                const mimeType = this._getMimeType(src);
+                node.setAttribute('src', `data:${mimeType};base64,${base64Image}`);
+                console.log(`图片已转换为base64格式`);
+            } catch (error) {
+                console.error(`读取或转换图片时出错: ${error.message}`);
+            }
+        }
+    }
+
+    /**
      * 遍历DOM树中的所有节点
      * @private
      */
-    _traverseNodes(node, document) {
+    _traverseNodes(node, document, process_func) {
         for (let child of node.childNodes) {
-            this._processTextNode(child, document);
-            this._traverseNodes(child, document);
+            process_func.call(this, child, document);
+            this._traverseNodes(child, document, process_func);
         }
     }
 
@@ -108,7 +148,17 @@ class MdParser {
         for (let i = 0; i < pages.length; ++i) {
             const dom = new JSDOM(pages[i].content, { contentType: 'text/html' });
             const document = dom.window.document;
-            this._traverseNodes(document.body, document);
+            this._traverseNodes(document.body, document, this._processTextNode);
+            pages[i].content = document.body.innerHTML;
+        }
+        return pages;
+    }
+
+    ImageToBase64(pages) {
+        for (let i = 0; i < pages.length; ++i) {
+            const dom = new JSDOM(pages[i].content, { contentType: 'text/html' });
+            const document = dom.window.document;
+            this._traverseNodes(document.body, document, this._processImageNode);
             pages[i].content = document.body.innerHTML;
         }
         return pages;

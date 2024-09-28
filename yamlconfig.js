@@ -8,6 +8,7 @@ class YAMLConfig {
         this.content_title_size = `50px`;
         this.cover_title_size = `60px`;
         this.cover_subtitle_size = `25px`;
+        this.div_pad = `5px`;
     }
 
     parseGlobalYAML(config) {
@@ -28,6 +29,9 @@ class YAMLConfig {
         }
         if ('cover_subtitle_size' in config) {
             this.cover_subtitle_size = config.cover_subtitle_size;
+        }
+        if ('div_pad' in config) {
+            this.div_pad = config.div_pad;
         }
         var basecss = `
             body {
@@ -61,6 +65,7 @@ class YAMLConfig {
                 h2 {
                     font-size: ${this.content_title_size};
                     margin-top: 20px;
+                    margin-bottom: 5px;
                     border-bottom: 1px solid #000; /* 添加下划线 */
                     padding-bottom: 10px; /* 为下划线和文本之间添加一些间距 */
                 }
@@ -73,6 +78,9 @@ class YAMLConfig {
                 }
                 .katex {
                     font-size: ${this.math_size};
+                }
+                div {
+                    padding: ${this.div_pad};
                 }
             }
         `
@@ -99,12 +107,16 @@ class YAMLConfig {
         if ('title_size' in config) {
             page_config.title_size = config.title_size;
         }
+        if ('div_pad' in config) {
+            page_config.div_pad = config.div_pad;
+        }
 
         var pagecss = `
             .content#${container_id} {
                 h2 {
                     font-size: ${page_config.title_size};
                     margin-top: 20px;
+                    margin-bottom: 5px;
                     border-bottom: 1px solid #000; /* 添加下划线 */
                     padding-bottom: 10px; /* 为下划线和文本之间添加一些间距 */
                 }
@@ -117,6 +129,9 @@ class YAMLConfig {
                 }
                 .katex {
                     font-size: ${page_config.math_size};
+                }
+                div {
+                    padding: ${page_config.div_pad};
                 }
             }
         `

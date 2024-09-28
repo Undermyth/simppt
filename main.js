@@ -31,6 +31,7 @@ const fileContent = fs.readFileSync('main.md', 'utf-8');
 const parser = new MdParser()
 var pages = parser.splitPages(fileContent);
 pages = parser.MarkdownToHTML(pages);
+pages = parser.ImageToBase64(pages);
 const baseCSS = parser.YAMLToCSS(pages);
 
 var html_content = ""
